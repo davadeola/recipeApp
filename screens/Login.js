@@ -25,7 +25,17 @@ const Login = ({navigation}) => {
             height: 200,
             justifyContent: 'flex-end',
             paddingHorizontal: SIZES.padding,
-          }}></LinearGradient>
+          }}>
+          <Text
+            style={{
+              width: '80%',
+              color: COLORS.white,
+              ...FONTS.largeTitle,
+              lineHeight: 45,
+            }}>
+            Cooking Delicious Food Easily
+          </Text>
+        </LinearGradient>
       </ImageBackground>
     </View>
   );
