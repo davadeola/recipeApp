@@ -10,6 +10,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {COLORS, images, SIZES, FONTS} from '../constants';
 
+import {CustomButton} from '../components';
+
 const Login = ({navigation}) => {
   const renderHeader = () => (
     <View style={{height: SIZES.height > 700 ? '65%' : '60%'}}>
@@ -51,6 +53,28 @@ const Login = ({navigation}) => {
         }}>
         Discover more than 1200 food recipes in your hands and cooking it easily
       </Text>
+
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <CustomButton
+          buttonText="Login"
+          buttonContainerStyle={{paddingVertical: 18, borderRadius: 20}}
+          colors={[COLORS.darkGreen, COLORS.lime]}
+          onPress={() => navigation.replace('Home')}
+        />
+
+        <CustomButton
+          buttonText="Sign Up"
+          colors={[]}
+          buttonContainerStyle={{
+            paddingVertical: 18,
+            borderRadius: 20,
+            marginTop: SIZES.radius,
+            borderColor: COLORS.darkLime,
+            borderWidth: 1,
+          }}
+          onPress={() => navigation.replace('Home')}
+        />
+      </View>
     </View>
   );
 
