@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import {FONTS, COLORS, SIZES, icons, images, dummyData} from '../constants';
+import {CategoryCard} from '../components';
 
 const Home = ({navigation}) => {
   return (
@@ -19,10 +20,14 @@ const Home = ({navigation}) => {
         keyExtractor={item => item.id}
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
-        renderItem={item => (
-          <View>
-            <Text>{item.name}</Text>
-          </View>
+        renderItem={({item}) => (
+          <CategoryCard
+            categoryItem={item}
+            containerStyle={{
+              marginHorizontal: SIZES.padding,
+            }}
+            onPress={() => navigation.navigate('Recipe', {recipe: item})}
+          />
         )}
         ListFooterComponent={<View style={{marginBottom: 100}} />}
       />
