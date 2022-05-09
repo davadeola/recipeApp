@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import {FONTS, COLORS, SIZES, icons, images, dummyData} from '../constants';
-import {CategoryCard} from '../components';
+import {CategoryCard, TrendingCard} from '../components';
 
 const Home = ({navigation}) => {
   const renderHeader = () => (
@@ -109,11 +109,7 @@ const Home = ({navigation}) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id}
-        renderItem={({item, index}) => (
-          <View>
-            <Text>{item.name}</Text>
-          </View>
-        )}
+        renderItem={({item, index}) => <TrendingCard recipeItem={item} />}
       />
     </View>
   );
