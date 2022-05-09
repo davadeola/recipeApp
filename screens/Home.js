@@ -65,6 +65,59 @@ const Home = ({navigation}) => {
     </View>
   );
 
+  const renderSeeRecipeCard = () => (
+    <View
+      style={{
+        flexDirection: 'row',
+        marginTop: SIZES.padding,
+        marginHorizontal: SIZES.padding,
+        borderRadius: 10,
+        backgroundColor: COLORS.lightGreen,
+      }}>
+      <View
+        style={{width: 100, alignItems: 'center', justifyContent: 'center'}}>
+        <Image source={images.recipe} style={{width: 80, height: 80}} />
+      </View>
+
+      <View style={{flex: 1, paddingVertical: SIZES.radius}}>
+        <Text style={{width: '70%', ...FONTS.body4}}>
+          You have 12 recipes that you haven't tried yet.
+        </Text>
+        <TouchableOpacity
+          style={{marginTop: 10}}
+          onPress={() => console.log('See Recipes')}>
+          <Text
+            style={{
+              color: COLORS.darkGreen,
+              textDecorationLine: 'underline',
+              ...FONTS.h4,
+            }}>
+            See Recipes
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const renderTrendingSection = () => (
+    <View style={{marginTop: SIZES.padding}}>
+      <Text style={{marginHorizontal: SIZES.padding, ...FONTS.h2}}>
+        Trending Recipes
+      </Text>
+      <FlatList
+        data={dummyData.trendingRecipes}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={item => item.id}
+        renderItem={({item, index}) => (
+          <View>
+            <Text>{item.name}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <FlatList
@@ -85,6 +138,8 @@ const Home = ({navigation}) => {
           <View>
             {renderHeader()}
             {renderSearchBar()}
+            {renderSeeRecipeCard()}
+            {renderTrendingSection()}
           </View>
         }
         ListFooterComponent={<View style={{marginBottom: 100}} />}
