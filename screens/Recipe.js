@@ -13,6 +13,8 @@ import {SIZES, FONTS, COLORS, icons} from '../constants';
 
 const HEADER_HEIGHT = 350;
 
+const RecipeCreatorCardInfo = () => <View></View>;
+
 const Recipe = ({navigation, route}) => {
   const [selectedRecipe, setSelectedRecipe] = React.useState(null);
 
@@ -22,6 +24,53 @@ const Recipe = ({navigation, route}) => {
   }, []);
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
+
+  const renderRecipeCardHeader = () => (
+    <View
+      style={{
+        alignItems: 'center',
+        overflow: 'hidden',
+        marginTop: -1000,
+        paddingTop: 1000,
+      }}>
+      {/* Background Image */}
+      <Animated.Image
+        source={selectedRecipe?.image}
+        resizeMode="contain"
+        style={{
+          height: HEADER_HEIGHT,
+          width: '200%',
+          transform: [
+            {
+              translateY: scrollY.interpolate({
+                inputRange: [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
+                outputRange: [-HEADER_HEIGHT / 2, 0, HEADER_HEIGHT * 0.75],
+              }),
+            },
+            {
+              scale: scrollY.interpolate({
+                inputRange: [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
+                outputRange: [2, 1, 0.75],
+              }),
+            },
+          ],
+        }}
+      />
+
+      {/* Recipe Card Section */}
+
+      <Animated.View
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          left: 30,
+          right: 30,
+          height: 80,
+        }}>
+        <RecipeCreatorCardInfo selectedRecipe={selectedRecipe} />
+      </Animated.View>
+    </View>
+  );
 
   return (
     <View
@@ -33,15 +82,41 @@ const Recipe = ({navigation, route}) => {
         data={selectedRecipe?.ingredients}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<View></View>}
+        ListHeaderComponent={<View>{renderRecipeCardHeader()}</View>}
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: true},
         )}
         renderItem={({item}) => (
-          <View>
-            <Text>{item.description}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingHorizontal: 30,
+              marginVertical: 5,
+            }}>
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 50,
+                width: 50,
+                borderRadius: 5,
+                backgroundColor: COLORS.lightGray,
+              }}>
+              <Image source={item.icon} style={{height: 40, width: 40}} />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                paddingHorizontal: 20,
+                justifyContent: 'center',
+              }}>
+              <Text style={{...FONTS.body3}}>{item.description}</Text>
+            </View>
+            <View style={{alignItems: 'flex-end', justifyContent: 'center'}}>
+              <Text style={{...FONTS.body3}}>{item.quantity}</Text>
+            </View>
           </View>
         )}
       />
