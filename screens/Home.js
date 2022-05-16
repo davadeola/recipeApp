@@ -109,7 +109,13 @@ const Home = ({navigation}) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id}
-        renderItem={({item, index}) => <TrendingCard recipeItem={item} />}
+        renderItem={({item, index}) => (
+          <TrendingCard
+            recipeItem={item}
+            containerStyle={{marginLeft: index == 0 ? SIZES.padding : 0}}
+            onPress={() => navigation.navigate('Recipe', {recipe: item})}
+          />
+        )}
       />
     </View>
   );
