@@ -69,6 +69,24 @@ const trendingRecipes = [
         description: 'Fresh Shrimp',
         quantity: '100g',
       },
+      {
+        id: 42,
+        icon: icons.tomato,
+        description: 'Campari tomatoes',
+        quantity: '100g',
+      },
+      {
+        id: 52,
+        icon: icons.salt,
+        description: 'Salt',
+        quantity: '¾ tbsp',
+      },
+      {
+        id: 62,
+        icon: icons.pepper,
+        description: 'Black Pepper',
+        quantity: '¼ tbsp',
+      },
     ],
     viewers: [
       {

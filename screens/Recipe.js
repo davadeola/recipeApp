@@ -85,6 +85,59 @@ const Recipe = ({navigation, route}) => {
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
+  const renderHeaderBar = () => (
+    <View
+      style={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+        height: 90,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        paddingHorizontal: SIZES.padding,
+        paddingBottom: 10,
+      }}>
+      <TouchableOpacity
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 35,
+          width: 35,
+          borderRadius: 18,
+          borderWidth: 1,
+          borderColor: COLORS.lightGray,
+          backgroundColor: COLORS.transparentBlack5,
+        }}
+        onPress={() => navigation.goBack()}>
+        <Image
+          source={icons.back}
+          style={{
+            width: 15,
+            height: 15,
+            tintColor: COLORS.lightGray,
+          }}
+        />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 35,
+          width: 35,
+        }}>
+        <Image
+          source={
+            selectedRecipe?.bookmark ? icons.bookmarkFilled : icons.bookmark
+          }
+          style={{width: 30, height: 30, tintColor: COLORS.darkGreen}}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+
   const renderRecipeCardHeader = () => (
     <View
       style={{
@@ -189,6 +242,9 @@ const Recipe = ({navigation, route}) => {
           </View>
         )}
       />
+
+      {/* Header Bar */}
+      {renderHeaderBar()}
     </View>
   );
 };
