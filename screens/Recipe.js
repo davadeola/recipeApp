@@ -21,14 +21,30 @@ const Recipe = ({navigation, route}) => {
     setSelectedRecipe(recipe);
   }, []);
 
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+
   return (
     <View
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: COLORS.white,
       }}>
-      <Text>Recipe</Text>
+      <Animated.FlatList
+        data={selectedRecipe?.ingredients}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<View></View>}
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
+        renderItem={({item}) => (
+          <View>
+            <Text>{item.description}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 };
