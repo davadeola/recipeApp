@@ -99,6 +99,56 @@ const Recipe = ({navigation, route}) => {
         paddingHorizontal: SIZES.padding,
         paddingBottom: 10,
       }}>
+      {/* Screen Overlay */}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: COLORS.black,
+          opacity: scrollY.interpolate({
+            inputRange: [HEADER_HEIGHT - 100, HEADER_HEIGHT - 70],
+            outputRange: [0, 1],
+          }),
+        }}
+      />
+
+      {/* Header Bar Title */}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          paddingBottom: 10,
+          opacity: scrollY.interpolate({
+            inputRange: [HEADER_HEIGHT - 100, HEADER_HEIGHT - 50],
+            outputRange: [0, 1],
+          }),
+          transform: [
+            {
+              translateY: scrollY.interpolate({
+                inputRange: [HEADER_HEIGHT - 100, HEADER_HEIGHT - 50],
+                outputRange: [50, 0],
+                extrapolate: 'clamp',
+              }),
+            },
+          ],
+        }}>
+        <Text style={{color: COLORS.lightGray2, ...FONTS.body4}}>
+          Recipe By
+        </Text>
+        <Text style={{color: COLORS.white2, ...FONTS.h3}}>
+          {selectedRecipe?.author?.name}
+        </Text>
+      </Animated.View>
+
+      {/* Back Button */}
       <TouchableOpacity
         style={{
           alignItems: 'center',
@@ -121,6 +171,7 @@ const Recipe = ({navigation, route}) => {
         />
       </TouchableOpacity>
 
+      {/* bookmark button */}
       <TouchableOpacity
         style={{
           alignItems: 'center',
