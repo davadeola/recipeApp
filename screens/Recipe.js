@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {set} from 'react-native-reanimated';
 
+import {Viewers} from '../components';
+
 import {SIZES, FONTS, COLORS, icons} from '../constants';
 
 const HEADER_HEIGHT = 350;
@@ -245,6 +247,31 @@ const Recipe = ({navigation, route}) => {
     </View>
   );
 
+  const renderRecipeInfo = () => (
+    <View
+      style={{
+        flexDirection: 'row',
+        height: 130,
+        width: SIZES.width,
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+        alignItems: 'center',
+      }}>
+      {/* Recipe */}
+      <View style={{flex: 1.5, justifyContent: 'center'}}>
+        <Text style={{...FONTS.h2}}>{selectedRecipe?.name}</Text>
+        <Text style={{marginTop: 5, color: COLORS.lightGray2, ...FONTS.body4}}>
+          {selectedRecipe?.duration} | {selectedRecipe?.serving} serving
+        </Text>
+      </View>
+
+      {/* Viewers */}
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <Viewers viewersList={selectedRecipe?.viewers} />
+      </View>
+    </View>
+  );
+
   return (
     <View
       style={{
@@ -255,7 +282,12 @@ const Recipe = ({navigation, route}) => {
         data={selectedRecipe?.ingredients}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<View>{renderRecipeCardHeader()}</View>}
+        ListHeaderComponent={
+          <View>
+            {renderRecipeCardHeader()}
+            {renderRecipeInfo()}
+          </View>
+        }
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
